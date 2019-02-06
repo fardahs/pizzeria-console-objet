@@ -46,6 +46,7 @@ public class PizzeriaAdminConsoleApp {
 			switch (choixUser) {
 			case 1:
 				System.out.println("Liste des pizzas \n ");
+				//Affiche tout les pizzas
 				for(int i=0; i< mesPizza.length; i++){
 					mesPizza[i].affiche();
 				}
@@ -63,6 +64,7 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Veuillez saisir le prix :");
 				double saisiPrix = questionUser.nextDouble();
 				
+				//instanciation 
 				Pizza userPizza = new Pizza(saisiCode, saisiNom, saisiPrix);
 				
 				tempArray = new Pizza[mesPizza.length + 1];
@@ -81,6 +83,7 @@ public class PizzeriaAdminConsoleApp {
 				
 			case 3:
 				System.out.println("Mise à jour d’une pizza \n");
+				
 				for(int i = 0; i<mesPizza.length; i++){
 					mesPizza[i].affiche();
 				}
@@ -89,17 +92,23 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Saisir le code du pizza a modifier \n");
 				String modifCode = questionUser.next();
 				
+				//Pacours la liste des pizzaq
 				for(int i = 0; i<mesPizza.length; i++){
-					if(mesPizza[i].equals(modifCode)){
+					
+					//Test si le code est égale au codeuser
+					if(mesPizza[i].getCode().equals(modifCode)){
 						System.out.println("Saisir le nouveau code");
 						String codeNouveau = questionUser.next();
 						
 						System.out.println("Saisir le nouveau libelle");
-						String libelleNouveau = questionUser.nextLine();
+						String libelleNouveau = questionUser.next();
 						
 						System.out.println("Saisir le nouveau prix");
-						String prixNouveau = questionUser.nextLine();
+						double prixNouveau = questionUser.nextDouble();
+						//Enregistre les mis à jour
+						mesPizza[i] = new Pizza(codeNouveau, libelleNouveau, prixNouveau);
 					}
+				
 				}
 				
 				break;

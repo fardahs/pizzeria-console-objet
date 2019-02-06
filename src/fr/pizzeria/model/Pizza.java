@@ -27,8 +27,11 @@ public class Pizza {
 	public void affiche(){
 		System.out.println(code + " -> " + libelle + "(" + prix + "€)");
 	}
-	
-	public void ajoutPizza(){
-		
+
+
+	public String getCode() {
+		return code;
 	}
+	
+	
 }
