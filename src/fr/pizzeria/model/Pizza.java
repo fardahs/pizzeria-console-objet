@@ -15,7 +15,7 @@ public class Pizza {
 		
 	}
 	
-	
+	//Constructeur
 	public Pizza(String code, String libelle, double prix) {
 		this.id++;
 		this.code = code;
@@ -23,12 +23,12 @@ public class Pizza {
 		this.prix = prix;
 	}
 
-
+	//Formatage sur de l'affichage des pizzas
 	public void affiche(){
 		System.out.println(code + " -> " + libelle + "(" + prix + "€)");
 	}
 
-
+	//Récupère valeur du code
 	public String getCode() {
 		return code;
 	}

@@ -8,10 +8,8 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
 		boolean propositionMenu = true;
-		Pizza tempArray[];
-		
+		//Demande à l'utilisateur 
 		Scanner questionUser = new Scanner(System.in);
 		
 		
@@ -64,12 +62,13 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Veuillez saisir le prix :");
 				double saisiPrix = questionUser.nextDouble();
 				
-				//instanciation 
+				 
+				//instanciation du pizza
 				Pizza userPizza = new Pizza(saisiCode, saisiNom, saisiPrix);
 				
-				tempArray = new Pizza[mesPizza.length + 1];
+				Pizza tempArray[] = new Pizza[mesPizza.length + 1];
 				
-				//copie
+				//copie du tableau initial au tableau temporaire
 				for (int i = 0; i<mesPizza.length; i++){
 					tempArray[i] = mesPizza[i];
 				}
@@ -114,7 +113,29 @@ public class PizzeriaAdminConsoleApp {
 				break;
 				
 			case 4:
+				questionUser.nextLine();
 				System.out.println("Mise à jour d’une pizza \n");
+				for(int i = 0; i<mesPizza.length; i++){
+					mesPizza[i].affiche();
+				}
+				
+				System.out.println("Saisir le code du pizza à supprimer");
+				String codeSupp = questionUser.nextLine();
+				//Tableau temporaire plus petite
+				Pizza tempArray1[] = new Pizza[mesPizza.length-1];
+				//variable temporaire
+				int compteur = 0;
+				
+				for (int i = 0; i<mesPizza.length; i++){
+					//On met tout les pizzas qui ne correspond pas au code courrant dans le tableau temporaire
+					if(!mesPizza[i].getCode().equals(codeSupp)){
+						tempArray1[compteur] = mesPizza[i];
+						compteur ++;
+					}
+				}
+				//liste pizza avec élément supprimer
+				mesPizza = tempArray1;
+				
 				break;
 				
 			case 99:
