@@ -11,14 +11,13 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		boolean propositionMenu = true;
-		
+
 		IPizzaDao pizzaDao = new PizzaMemDao();
-		
-		
+
 		//Donne la main à l'utilisateur pour la saisie
 		Scanner questionUser = new Scanner(System.in);
-		
-		
+
+
 		//Initialisation des pizzas
 		Pizza maPizza1 = new Pizza(0,"PEP","Pépéroni",12.50);
 		Pizza maPizza2 = new Pizza(1,"MAR","Margherita",14.00);
@@ -28,7 +27,7 @@ public class PizzeriaAdminConsoleApp {
 		Pizza maPizza6 = new Pizza(5,"SAV","La savoyarde",13.00);
 		Pizza maPizza7 = new Pizza(6,"ORI","L’orientale",13.50);
 		Pizza maPizza8 = new Pizza(7,"IND","L’indienne",14.00);
-		
+
 		//Tableau des pizzas
 		pizzaDao.saveNewPizza(maPizza1);
 		pizzaDao.saveNewPizza(maPizza2);
@@ -38,67 +37,38 @@ public class PizzeriaAdminConsoleApp {
 		pizzaDao.saveNewPizza(maPizza6);
 		pizzaDao.saveNewPizza(maPizza7);
 		pizzaDao.saveNewPizza(maPizza8);
-		
+
 		while(propositionMenu){
-			
+
 			//Liste menu
 			System.out.println("***** Pizzeria Administration *****");
 			System.out.println("1. Lister les pizzas \n" + 
-								"2. Ajouter une nouvelle pizza \n" + 
-								"3. Mettre à jour une pizza \n" +
-								"4. Supprimer une pizza \n"+
-								"99. Sortir \n");
-			
+					"2. Ajouter une nouvelle pizza \n" + 
+					"3. Mettre à jour une pizza \n" +
+					"4. Supprimer une pizza \n"+
+					"99. Sortir \n");
+
 			int choixUser = questionUser.nextInt();
-			
-			
-			switch (choixUser) {
-			case 1:
-				
-				//Service liste des pizzas
-				ListerPizzasService listePizza = new ListerPizzasService();
-				listePizza.executeUC(questionUser, pizzaDao);
-				System.out.println();	
-				
-				break;
-				
-			case 2:
-				
-				//Service ajout pizza
-				AjouterPizzaService ajoutPizza = new AjouterPizzaService();
-				ajoutPizza.executeUC(questionUser, pizzaDao);
-				
-				break;
-				
-			case 3:
-				
-				//Service modification pizza
-				ModifierPizzaService modifPizza = new ModifierPizzaService();
-				modifPizza.executeUC(questionUser, pizzaDao);
-	
-				break;
-				
-			case 4:
-				
-				//Service suprimme pizza
-				SupprimerPizzaService supprimePizza = new SupprimerPizzaService();
-				supprimePizza.executeUC(questionUser, pizzaDao);
-				break;
-			
-			case 99:
+
+			//Recupere les services
+			MenuService service = MenuServiceFactory.getService(choixUser);
+			//S'il est différent de null alors on exécute le service correspondant
+			if (service != null){
+				service.executeUC(questionUser, pizzaDao);
+			} else if (choixUser == 99) {
 				System.out.println("Au revoir :( \n");
 				propositionMenu = false;
-				break;
-
-			default:
-				break;
+			} else {
+				System.out.println("Je n'ai pas compris votre choix");
 			}
-			
+
 		}
-		
+
 	}
-	
-	
-	
 
 }
+
+
+
+
+
