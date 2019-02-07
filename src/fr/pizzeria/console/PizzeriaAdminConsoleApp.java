@@ -1,4 +1,6 @@
 package fr.pizzeria.console;
+import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.model.*;
 
 import java.util.Arrays;
@@ -7,9 +9,11 @@ import java.util.Scanner;
 public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		boolean propositionMenu = true;
-		//Demande à l'utilisateur 
+		//
+		IPizzaDao pizzaDao = new PizzaMemDao();
+		
+		//Donne la main à l'utilisateur
 		Scanner questionUser = new Scanner(System.in);
 		
 		
@@ -24,9 +28,14 @@ public class PizzeriaAdminConsoleApp {
 		Pizza maPizza8 = new Pizza(7,"IND","L’indienne",14.00);
 		
 		//Tableau des pizzas
-		Pizza mesPizza[] = {maPizza1, maPizza2, maPizza3, maPizza4, 
-										maPizza5, maPizza6, maPizza7, maPizza8};
-		
+		pizzaDao.saveNewPizza(maPizza1);
+		pizzaDao.saveNewPizza(maPizza2);
+		pizzaDao.saveNewPizza(maPizza3);
+		pizzaDao.saveNewPizza(maPizza4);
+		pizzaDao.saveNewPizza(maPizza5);
+		pizzaDao.saveNewPizza(maPizza6);
+		pizzaDao.saveNewPizza(maPizza7);
+		pizzaDao.saveNewPizza(maPizza8);
 		
 		while(propositionMenu){
 			
@@ -45,9 +54,7 @@ public class PizzeriaAdminConsoleApp {
 			case 1:
 				System.out.println("Liste des pizzas \n ");
 				//Affiche tout les pizzas
-				for(int i=0; i< mesPizza.length; i++){
-					mesPizza[i].affiche();
-				}
+				pizzaDao.findAllPizzas();
 				System.out.println();			
 				break;
 				
@@ -63,81 +70,53 @@ public class PizzeriaAdminConsoleApp {
 				double saisiPrix = questionUser.nextDouble();
 				
 				 
-				//instanciation du pizza
+				//Initialisation du nouveau pizza
 				Pizza userPizza = new Pizza(saisiCode, saisiNom, saisiPrix);
-				
-				Pizza tempArray[] = new Pizza[mesPizza.length + 1];
-				
-				//copie du tableau initial au tableau temporaire
-				for (int i = 0; i<mesPizza.length; i++){
-					tempArray[i] = mesPizza[i];
-				}
-				
-				System.out.println(tempArray.length);
-				tempArray[mesPizza.length] = userPizza;
-				mesPizza = tempArray;
-				
-				
+				//Ajout du nouveau pizza
+				pizzaDao.saveNewPizza(userPizza);							
 				break;
 				
 			case 3:
-				System.out.println("Mise à jour d’une pizza \n");
 				
-				for(int i = 0; i<mesPizza.length; i++){
-					mesPizza[i].affiche();
-				}
+				System.out.println("Mise à jour d’une pizza \n");
+				//Afffiche tout les pizzas
+				pizzaDao.findAllPizzas();
 				
 				questionUser.nextLine();
 				System.out.println("Saisir le code du pizza a modifier \n");
 				String modifCode = questionUser.next();
 				
-				//Pacours la liste des pizzaq
-				for(int i = 0; i<mesPizza.length; i++){
-					
-					//Test si le code est égale au codeuser
-					if(mesPizza[i].getCode().equals(modifCode)){
-						System.out.println("Saisir le nouveau code");
-						String codeNouveau = questionUser.next();
-						
-						System.out.println("Saisir le nouveau libelle");
-						String libelleNouveau = questionUser.next();
-						
-						System.out.println("Saisir le nouveau prix");
-						double prixNouveau = questionUser.nextDouble();
-						//Enregistre les mis à jour
-						mesPizza[i] = new Pizza(codeNouveau, libelleNouveau, prixNouveau);
-					}
-				
-				}
+				//Recher pizza par le code 
+				Pizza pizzaTrouver = pizzaDao.findPizzaByCode(modifCode);
+
+				if(pizzaDao.pizzaExists(modifCode)){
+					System.out.println("Saisir le nouveau code");
+					 pizzaTrouver.setCode(questionUser.next());
+					 
+					 System.out.println("Saisir le nouveau libelle");
+					 pizzaTrouver.setLibelle(questionUser.next());
+					 
+					 System.out.println("Saisir le nouveau prix");
+					 pizzaTrouver.setPrix(questionUser.nextDouble());
+					 
+					 pizzaDao.updatePizza(modifCode, pizzaTrouver);
+					 
+				}				
 				
 				break;
 				
 			case 4:
+				
 				questionUser.nextLine();
-				System.out.println("Mise à jour d’une pizza \n");
-				for(int i = 0; i<mesPizza.length; i++){
-					mesPizza[i].affiche();
-				}
+				System.out.println("Suppression d’une pizza \n");
+				pizzaDao.findAllPizzas();
 				
 				System.out.println("Saisir le code du pizza à supprimer");
 				String codeSupp = questionUser.nextLine();
-				//Tableau temporaire plus petite
-				Pizza tempArray1[] = new Pizza[mesPizza.length-1];
-				//variable temporaire
-				int compteur = 0;
 				
-				for (int i = 0; i<mesPizza.length; i++){
-					//On met tout les pizzas qui ne correspond pas au code courrant dans le tableau temporaire
-					if(!mesPizza[i].getCode().equals(codeSupp)){
-						tempArray1[compteur] = mesPizza[i];
-						compteur ++;
-					}
-				}
-				//liste pizza avec élément supprimer
-				mesPizza = tempArray1;
-				
+				pizzaDao.deletePizza(codeSupp);
 				break;
-				
+			
 			case 99:
 				System.out.println("Au revoir :( \n");
 				propositionMenu = false;
