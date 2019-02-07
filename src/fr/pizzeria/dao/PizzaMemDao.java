@@ -14,7 +14,7 @@ public class PizzaMemDao implements IPizzaDao {
 			
 	@Override
 	public Pizza[] findAllPizzas() {
-		//Affiche tout les pizzas dans le tableau
+		//Trouve tout les pizzas dans le tableau
 		for(int i=0; i< arrayPizza.length; i++){
 			arrayPizza[i].affiche();
 		}
