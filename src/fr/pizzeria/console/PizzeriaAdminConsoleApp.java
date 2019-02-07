@@ -17,7 +17,7 @@ public class PizzeriaAdminConsoleApp {
 		Scanner questionUser = new Scanner(System.in);
 		
 		
-		//Instanciation des pizzas
+		//Initialisation des pizzas
 		Pizza maPizza1 = new Pizza(0,"PEP","Pépéroni",12.50);
 		Pizza maPizza2 = new Pizza(1,"MAR","Margherita",14.00);
 		Pizza maPizza3 = new Pizza(2,"REIN","La Reine",11.50);
@@ -86,9 +86,10 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Saisir le code du pizza a modifier \n");
 				String modifCode = questionUser.next();
 				
-				//Recher pizza par le code 
+				//Recherche pizza par le code 
 				Pizza pizzaTrouver = pizzaDao.findPizzaByCode(modifCode);
-
+				
+				//Si le pizza existe alors on demande à l'utilisateur de saisir les nouveaux informations
 				if(pizzaDao.pizzaExists(modifCode)){
 					System.out.println("Saisir le nouveau code");
 					 pizzaTrouver.setCode(questionUser.next());
@@ -99,6 +100,7 @@ public class PizzeriaAdminConsoleApp {
 					 System.out.println("Saisir le nouveau prix");
 					 pizzaTrouver.setPrix(questionUser.nextDouble());
 					 
+					 //Mise à jour du pizza
 					 pizzaDao.updatePizza(modifCode, pizzaTrouver);
 					 
 				}				
@@ -114,6 +116,7 @@ public class PizzeriaAdminConsoleApp {
 				System.out.println("Saisir le code du pizza à supprimer");
 				String codeSupp = questionUser.nextLine();
 				
+				//Suppression de la pizza
 				pizzaDao.deletePizza(codeSupp);
 				break;
 			

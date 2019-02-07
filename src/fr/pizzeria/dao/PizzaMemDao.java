@@ -65,7 +65,7 @@ public class PizzaMemDao implements IPizzaDao {
 		int compteur = 0;
 		
 		for (int i = 0; i<arrayPizza.length; i++){
-			//On ajoute tout les pizzas différents au codePizza rechercher dans le tableau temporaire
+			//On ajoute tout les pizzas différents au codePizza rechercher, dans le tableau temporaire
 			if(!arrayPizza[i].getCode().equals(codePizza)){
 				tempArray[compteur] = arrayPizza[i];
 				compteur ++;
