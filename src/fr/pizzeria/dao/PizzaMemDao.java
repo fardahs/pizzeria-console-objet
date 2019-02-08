@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -31,9 +34,15 @@ public class PizzaMemDao implements IPizzaDao {
 	/**
 	 * La méthode enregistre une nouvelle pizza
 	 * @param Pizza
+	 * @throws SavePizzaException 
 	 */
 	@Override
-	public void saveNewPizza(Pizza pizza) {
+	public void saveNewPizza(Pizza pizza) throws SavePizzaException {
+		//Retourne une exception si le prix 
+		if (pizza.getPrix() < 0){
+			throw new SavePizzaException("Le prix doit être supérieur à 0");
+		}
+		
 		//Ajout d'une nouvelle pizza
 		arrayPizza.add(pizza);
 	}
@@ -41,14 +50,16 @@ public class PizzaMemDao implements IPizzaDao {
 	
 	/**
 	 * La méthode met à jour une pizza
-	 * @param codePizza, Pizza
+	 * @param codePizza pizza
+	 * @throws UpdatePizzaException
 	 */
 	@Override
-	public void updatePizza(String codePizza, Pizza pizza) {
+	public void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException{
+		
 
 		//Parcours sur la liste de pizza
 		Iterator<Pizza> iterator = arrayPizza.iterator();
-
+		
 		while (iterator.hasNext()) {
 			//Le pizza suivant
 			pizza = (Pizza) iterator.next();
@@ -60,9 +71,14 @@ public class PizzaMemDao implements IPizzaDao {
 				pizza.setCode(pizza.getCode());
 				pizza.setLibelle(pizza.getLibelle());
 				pizza.setPrix(pizza.getPrix());
+				
+				return;
 			}
-
+			
+			
 		}
+		
+		
 
 	}
 	/**
@@ -71,8 +87,10 @@ public class PizzaMemDao implements IPizzaDao {
 	 */
 
 	@Override
-	public void deletePizza(String codePizza) {
-
+	public void deletePizza(String codePizza) throws DeletePizzaException {
+		if(!pizzaExists(codePizza)){
+			throw new DeletePizzaException("Ce code n'existe pas");
+		}
 		//Parcours sur la liste de pizza
 		Iterator<Pizza> iterator = arrayPizza.iterator();
 		while (iterator.hasNext()) {

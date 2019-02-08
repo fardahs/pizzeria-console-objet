@@ -1,16 +1,16 @@
 package fr.pizzeria.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner questionUser, IPizzaDao pizzaDao) {
+	public void executeUC(Scanner questionUser, IPizzaDao pizzaDao) throws SavePizzaException {
 		System.out.println("Ajout d’une nouvelle pizza \n");
 		System.out.println("Veuillez saisir le code :");
 		String saisiCode = questionUser.next();
@@ -25,7 +25,11 @@ public class AjouterPizzaService extends MenuService {
 		//Initialisation du nouveau pizza
 		Pizza userPizza = new Pizza(saisiCode, saisiNom, saisiPrix);
 		//Ajout du nouveau pizza
-		pizzaDao.saveNewPizza(userPizza);
+		
+			pizzaDao.saveNewPizza(userPizza);	
+
+		
+		
 		
 	}
 

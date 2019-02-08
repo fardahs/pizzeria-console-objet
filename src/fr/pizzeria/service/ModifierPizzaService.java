@@ -3,12 +3,13 @@ package fr.pizzeria.service;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaService extends MenuService{
 
 	@Override
-	public void executeUC(Scanner questionUser, IPizzaDao pizzaDao) {
+	public void executeUC(Scanner questionUser, IPizzaDao pizzaDao) throws UpdatePizzaException {
 		
 		System.out.println("Mise à jour d’une pizza \n");
 		//Afffiche tout les pizzas
@@ -21,6 +22,10 @@ public class ModifierPizzaService extends MenuService{
 		//Recherche pizza par le code 
 		Pizza pizzaTrouver = pizzaDao.findPizzaByCode(modifCode);
 		
+		if(!pizzaDao.pizzaExists(modifCode)){
+			throw new UpdatePizzaException("Ce code n'existe pas");
+		}
+		
 		//Si le pizza existe alors on demande à l'utilisateur de saisir les nouveaux informations
 		if(pizzaDao.pizzaExists(modifCode)){
 			System.out.println("Saisir le nouveau code");
@@ -32,7 +37,10 @@ public class ModifierPizzaService extends MenuService{
 			 System.out.println("Saisir le nouveau prix");
 			 pizzaTrouver.setPrix(questionUser.nextDouble());
 			 
-			 //Mise à jour du pizza
+			 if(pizzaTrouver.getPrix()<0){
+				 throw new UpdatePizzaException("Le prix doit être suppérieur à 0");
+			 }
+			 //Mise à jour du pizza		
 			 pizzaDao.updatePizza(modifCode, pizzaTrouver);
 		}
 	}

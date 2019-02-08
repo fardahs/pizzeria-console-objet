@@ -3,12 +3,13 @@ package fr.pizzeria.service;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.DeletePizzaException;
 
 public class SupprimerPizzaService extends MenuService {
 
 
 	@Override
-	public void executeUC(Scanner questionUser, IPizzaDao dao) {
+	public void executeUC(Scanner questionUser, IPizzaDao dao) throws DeletePizzaException {
 		
 		questionUser.nextLine();
 		System.out.println("Suppression d’une pizza \n");

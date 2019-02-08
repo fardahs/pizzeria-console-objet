@@ -7,6 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.pizzeria.dao.PizzaMemDao;
+import fr.pizzeria.exception.DeletePizzaException;
+import fr.pizzeria.exception.SavePizzaException;
+import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.Pizza;
 
 public class DaoTest {
@@ -26,7 +29,7 @@ public class DaoTest {
 	}
 
 	@Test
-	public void testAjoutPizza() {
+	public void testAjoutPizza() throws SavePizzaException {
 		assertTrue("Dao doit être vide", dao.findAllPizzas().isEmpty());
 		
 		//On ajoute une pizza
@@ -37,7 +40,7 @@ public class DaoTest {
 	}
 
 	@Test
-	public void testModifiePizza(){
+	public void testModifiePizza() throws SavePizzaException, UpdatePizzaException{
 		
 		//On ajoute une pizza
 		Pizza pizza = new Pizza("PEP", "Pert", 10);
@@ -60,7 +63,7 @@ public class DaoTest {
 	}
 
 	@Test
-	public void testSupprimePizza(){
+	public void testSupprimePizza() throws SavePizzaException, DeletePizzaException{
 		
 		//On ajoute une pizza
 		Pizza pizza = new Pizza("PEP", "Pert", 10);
