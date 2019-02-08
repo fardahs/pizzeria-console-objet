@@ -39,7 +39,7 @@ public class PizzeriaAdminConsoleApp {
 
 		while(propositionMenu){
 
-			//Liste menu
+			//Affiche le menu
 			System.out.println("***** Pizzeria Administration *****");
 			System.out.println("1. Lister les pizzas \n" + 
 					"2. Ajouter une nouvelle pizza \n" + 
@@ -51,6 +51,7 @@ public class PizzeriaAdminConsoleApp {
 
 			//Recupere les services
 			MenuService service = MenuServiceFactory.getService(choixUser);
+			
 			//S'il est différent de null alors on exécute le service correspondant
 			if (service != null){
 				service.executeUC(questionUser, pizzaDao);
