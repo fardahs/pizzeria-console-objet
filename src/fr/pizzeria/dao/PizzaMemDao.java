@@ -1,18 +1,24 @@
 package fr.pizzeria.dao;
 
-
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Gestion stockage des informations
+ * @author Diginamic
+ * La classe implémente l'interface IPizzaDao dans laquelle on implémente toute les opérations du CRUD du tableau
+ */
 public class PizzaMemDao implements IPizzaDao {
 
 	//Tableau des pizzas
 	private List<Pizza> arrayPizza = new ArrayList<Pizza>();
 
+	/**
+	 * La méthode liste toute les pizzas
+	 */
 	@Override
 	public List<Pizza> findAllPizzas() {
 		//Trouve tout les pizzas
@@ -22,12 +28,21 @@ public class PizzaMemDao implements IPizzaDao {
 		return arrayPizza;
 	}
 
+	/**
+	 * La méthode enregistre une nouvelle pizza
+	 * @param Pizza
+	 */
 	@Override
 	public void saveNewPizza(Pizza pizza) {
 		//Ajout d'une nouvelle pizza
 		arrayPizza.add(pizza);
 	}
-
+	
+	
+	/**
+	 * La méthode met à jour une pizza
+	 * @param codePizza, Pizza
+	 */
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
 
@@ -50,6 +65,10 @@ public class PizzaMemDao implements IPizzaDao {
 		}
 
 	}
+	/**
+	 * La méthode surpprime une pizza
+	 * @param codePizza
+	 */
 
 	@Override
 	public void deletePizza(String codePizza) {
@@ -69,7 +88,11 @@ public class PizzaMemDao implements IPizzaDao {
 
 		}
 	}
-
+	
+	/**
+	 * La méthode trouve une pizza à partir de son code
+	 * @param codePizza
+	 */
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 		Pizza pizza = null;
@@ -80,13 +103,15 @@ public class PizzaMemDao implements IPizzaDao {
 			if(pizzaExists(codePizza) == true){
 				//Pizza trouve
 				pizza = p;
-			}else{
-				System.out.println("Le pizza avec le code "+ codePizza + " n'existe pas");
 			}
 		}
 		return pizza;
 	}
 
+	/**
+	 * La méthode vérifie si une pizza existe à partir du code 
+	 * @param codePizza
+	 */
 	@Override
 	public boolean pizzaExists(String codePizza) {
 		//vrai si la pizza existe
