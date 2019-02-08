@@ -1,4 +1,4 @@
-package service;
+package fr.pizzeria.service;
 /**
  * param int choixUtilisateur
  * @author Diginamic

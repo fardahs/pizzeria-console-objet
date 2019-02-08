@@ -2,8 +2,7 @@ package fr.pizzeria.console;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.model.*;
-import service.*;
-
+import fr.pizzeria.service.*;
 
 import java.util.Scanner;
 
