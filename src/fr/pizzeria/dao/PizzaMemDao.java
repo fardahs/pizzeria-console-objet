@@ -11,7 +11,7 @@ import fr.pizzeria.model.Pizza;
 
 /**
  * Gestion stockage des informations
- * @author Diginamic
+ * @author Farda
  * La classe implémente l'interface IPizzaDao dans laquelle on implémente toute les opérations du CRUD du tableau
  */
 public class PizzaMemDao implements IPizzaDao {
@@ -42,12 +42,12 @@ public class PizzaMemDao implements IPizzaDao {
 		if (pizza.getPrix() < 0){
 			throw new SavePizzaException("Le prix doit être supérieur à 0");
 		}
-		
+
 		//Ajout d'une nouvelle pizza
 		arrayPizza.add(pizza);
 	}
-	
-	
+
+
 	/**
 	 * La méthode met à jour une pizza
 	 * @param codePizza pizza
@@ -55,11 +55,11 @@ public class PizzaMemDao implements IPizzaDao {
 	 */
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) throws UpdatePizzaException{
-		
+
 
 		//Parcours sur la liste de pizza
 		Iterator<Pizza> iterator = arrayPizza.iterator();
-		
+
 		while (iterator.hasNext()) {
 			//Le pizza suivant
 			pizza = (Pizza) iterator.next();
@@ -71,14 +71,14 @@ public class PizzaMemDao implements IPizzaDao {
 				pizza.setCode(pizza.getCode());
 				pizza.setLibelle(pizza.getLibelle());
 				pizza.setPrix(pizza.getPrix());
-				
+
 				return;
 			}
-			
-			
+
+
 		}
-		
-		
+
+
 
 	}
 	/**
@@ -94,10 +94,10 @@ public class PizzaMemDao implements IPizzaDao {
 		//Parcours sur la liste de pizza
 		Iterator<Pizza> iterator = arrayPizza.iterator();
 		while (iterator.hasNext()) {
-			
+
 			//Le pizza suivant
 			Pizza pizza = (Pizza) iterator.next();
-			
+
 			//Si le code du pizza est égale au code rechercher
 			if(pizza.getCode().equals(codePizza)){
 				//Supprime la pizza
@@ -106,7 +106,7 @@ public class PizzaMemDao implements IPizzaDao {
 
 		}
 	}
-	
+
 	/**
 	 * La méthode trouve une pizza à partir de son code
 	 * @param codePizza
@@ -116,9 +116,9 @@ public class PizzaMemDao implements IPizzaDao {
 		Pizza pizza = null;
 
 		for (Pizza p:arrayPizza){
-			
+
 			//Si le pizza rechercher par le code existe
-			if(pizzaExists(codePizza) == true){
+			if(pizzaExists(codePizza)){
 				//Pizza trouve
 				pizza = p;
 			}
@@ -154,5 +154,7 @@ public class PizzaMemDao implements IPizzaDao {
 
 		return existe;
 	}
+
+
 
 }

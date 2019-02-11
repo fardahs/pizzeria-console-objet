@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaService extends MenuService{
@@ -37,7 +38,27 @@ public class ModifierPizzaService extends MenuService{
 			 System.out.println("Saisir le nouveau prix");
 			 pizzaTrouver.setPrix(questionUser.nextDouble());
 			 
-			 if(pizzaTrouver.getPrix()<0){
+			 System.out.println("Saisir la nouvelle catégorie");
+			 CategoriePizza typePizza = CategoriePizza.valueOf(questionUser.next());
+			 
+			 //Parcours sur les categories pizzas
+			 for (CategoriePizza cat : CategoriePizza.values()) {
+				 
+				 //On test la catégorie de la pizza et on modifie sa valeur
+					if(cat.equals(typePizza.POISSON)){
+						pizzaTrouver.setCategoriePizza(typePizza);
+						
+					}else if(cat.equals(typePizza.VIANDE)){
+						
+						pizzaTrouver.setCategoriePizza(typePizza);
+						
+					}else if(cat.equals(typePizza.SANS_VIANDE)){
+						pizzaTrouver.setCategoriePizza(typePizza);
+					}
+				}
+			 
+			 
+			 if(pizzaTrouver.getPrix() < 0){
 				 throw new UpdatePizzaException("Le prix doit être suppérieur à 0");
 			 }
 			 //Mise à jour du pizza		
