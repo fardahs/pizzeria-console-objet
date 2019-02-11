@@ -1,9 +1,7 @@
 package fr.pizzeria.console;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaMemDao;
-import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageException;
-import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.*;
 import fr.pizzeria.service.*;
 
@@ -21,14 +19,14 @@ public class PizzeriaAdminConsoleApp {
 
 		try {
 			//Initialisation des pizzas
-			Pizza maPizza1 = new Pizza(0,"PEP","Pépéroni",12.50);
-			Pizza maPizza2 = new Pizza(1,"MAR","Margherita",14.00);
-			Pizza maPizza3 = new Pizza(2,"REIN","La Reine",11.50);
-			Pizza maPizza4 = new Pizza(3,"FRO","La 4 fromages",12.00);
-			Pizza maPizza5 = new Pizza(4,"CAN","La cannibale",12.50);
-			Pizza maPizza6 = new Pizza(5,"SAV","La savoyarde",13.00);
-			Pizza maPizza7 = new Pizza(6,"ORI","L’orientale",13.50);
-			Pizza maPizza8 = new Pizza(7,"IND","L’indienne",14.00);
+			Pizza maPizza1 = new Pizza(0,"PEP","Pépéroni",12.50, CategoriePizza.VIANDE);
+			Pizza maPizza2 = new Pizza(1,"MAR","Margherita",14.00, CategoriePizza.SANS_VIANDE);
+			Pizza maPizza3 = new Pizza(2,"REIN","La Reine",11.50, CategoriePizza.VIANDE);
+			Pizza maPizza4 = new Pizza(3,"FRO","La 4 fromages",12.00, CategoriePizza.SANS_VIANDE);
+			Pizza maPizza5 = new Pizza(4,"CAN","La cannibale",12.50, CategoriePizza.VIANDE);
+			Pizza maPizza6 = new Pizza(5,"SAV","La savoyarde",13.00, CategoriePizza.VIANDE);
+			Pizza maPizza7 = new Pizza(6,"ORI","L’orientale",13.50, CategoriePizza.VIANDE);
+			Pizza maPizza8 = new Pizza(7,"IND","L’indienne",14.00, CategoriePizza.SANS_VIANDE);
 
 			//Tableau des pizzas
 			pizzaDao.saveNewPizza(maPizza1);
@@ -39,6 +37,7 @@ public class PizzeriaAdminConsoleApp {
 			pizzaDao.saveNewPizza(maPizza6);
 			pizzaDao.saveNewPizza(maPizza7);
 			pizzaDao.saveNewPizza(maPizza8);
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

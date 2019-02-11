@@ -33,7 +33,7 @@ public class DaoTest {
 		assertTrue("Dao doit être vide", dao.findAllPizzas().isEmpty());
 		
 		//On ajoute une pizza
-		dao.saveNewPizza(new Pizza("PEP", "Pert", 10));
+		dao.saveNewPizza(new Pizza("PEP", "Pert", 10, null));
 		
 		//On vérifie que la pizza est bien dans le dao
 		assertTrue("J'ai trouvé ma pizza", dao.findPizzaByCode("PEP").getCode().equals("PEP"));
@@ -43,7 +43,7 @@ public class DaoTest {
 	public void testModifiePizza() throws SavePizzaException, UpdatePizzaException{
 		
 		//On ajoute une pizza
-		Pizza pizza = new Pizza("PEP", "Pert", 10);
+		Pizza pizza = new Pizza("PEP", "Pert", 10, null);
 		dao.saveNewPizza(pizza);
 
 		assertFalse("Dao ne doit pas être vide", dao.findAllPizzas().isEmpty());
@@ -66,7 +66,7 @@ public class DaoTest {
 	public void testSupprimePizza() throws SavePizzaException, DeletePizzaException{
 		
 		//On ajoute une pizza
-		Pizza pizza = new Pizza("PEP", "Pert", 10);
+		Pizza pizza = new Pizza("PEP", "Pert", 10, null);
 		dao.saveNewPizza(pizza);
 		
 		assertTrue("J'ai trouvé ma pizza", dao.findPizzaByCode("PEP").getCode().equals("PEP"));
